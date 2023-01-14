@@ -34,9 +34,9 @@ const sslServer = https.createServer({
 
 
 
-var server = sslServer.listen(port, () => {
-    console.log('HTTPS Server running on ', port);
-});
+//var server = sslServer.listen(port, () => {console.log('HTTPS Server running on ', port);});
+
+
 
 
 ///////////
@@ -44,7 +44,7 @@ var server = sslServer.listen(port, () => {
 app.use(serveStatic(__dirname + "/public"));
 
 
-app.listen(port, hostname, function() {
+sslServer.listen(port, hostname, function() {
 
     console.log(`Server hosted at http://${hostname}:${port}`);
 });
