@@ -1,0 +1,5 @@
+{"exception":"-","id":"9","method":"GET","url":"/offer/","remote-addr":"::1","status":"201","content-length":"28","response-time":"9.356 ms","date":"Sat, 14 Jan 2023 18:11:33 GMT"}
+{"exception":"-","id":"9","method":"GET","url":"/offer/status/","remote-addr":"::1","status":"201","content-length":"293","response-time":"7.210 ms","date":"Sat, 14 Jan 2023 18:11:33 GMT"}
+{"exception":"-","id":"-","method":"POST","url":"/user/logout","remote-addr":"::1","status":"200","content-length":"47","response-time":"0.956 ms","date":"Sat, 14 Jan 2023 18:11:34 GMT"}
+{"exception":"-","id":"-","method":"POST","url":"/user/login","remote-addr":"::1","status":"404","content-length":"9","response-time":"22.124 ms","date":"Sat, 14 Jan 2023 18:11:58 GMT"}
+{"exception":"-","id":"-","method":"POST","url":"/user/login","remote-addr":"::1","status":"404","content-length":"9","response-time":"14.258 ms","date":"Sat, 14 Jan 2023 18:12:10 GMT"}
