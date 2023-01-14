@@ -1,0 +1,4 @@
+{"exception":"-","id":"-","method":"GET","url":"/","remote-addr":"::1","status":"404","content-length":"139","response-time":"4.196 ms","date":"Sat, 14 Jan 2023 17:48:10 GMT"}
+{"exception":"-","id":"-","method":"GET","url":"/","remote-addr":"::1","status":"404","content-length":"139","response-time":"7.368 ms","date":"Sat, 14 Jan 2023 17:51:45 GMT"}
+{"exception":"-","id":"-","method":"GET","url":"/","remote-addr":"::1","status":"404","content-length":"139","response-time":"4.135 ms","date":"Sat, 14 Jan 2023 17:51:48 GMT"}
+{"exception":"-","id":"-","method":"GET","url":"/listing/undefined/","remote-addr":"::1","status":"304","content-length":"-","response-time":"234.975 ms","date":"Sat, 14 Jan 2023 17:54:36 GMT"}
