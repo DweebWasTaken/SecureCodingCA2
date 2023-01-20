@@ -1,0 +1,3 @@
+{"exception":"-","id":"-","method":"GET","url":"/likes/129/","remote-addr":"::1","status":"304","content-length":"-","response-time":"8.082 ms","date":"Sun, 15 Jan 2023 08:15:15 GMT"}
+{"exception":"-","id":"-","method":"GET","url":"/favicon.ico","remote-addr":"::1","status":"404","content-length":"150","response-time":"3.581 ms","date":"Sun, 15 Jan 2023 08:15:15 GMT"}
+{"exception":"-","id":"-","method":"GET","url":"/likes/","remote-addr":"::1","status":"404","content-length":"145","response-time":"1.111 ms","date":"Sun, 15 Jan 2023 08:15:19 GMT"}
