@@ -1,2 +1,0 @@
-{"exception":"-","id":"9","method":"GET","url":"/offer/","remote-addr":"::1","status":"201","content-length":"28","response-time":"9.400 ms","date":"Mon, 30 Jan 2023 04:30:06 GMT"}
-{"exception":"-","id":"9","method":"GET","url":"/offer/status/","remote-addr":"::1","status":"201","content-length":"293","response-time":"8.204 ms","date":"Mon, 30 Jan 2023 04:30:06 GMT"}

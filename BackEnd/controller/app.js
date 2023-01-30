@@ -27,7 +27,7 @@ app.use(urlencodedParser);
 
 
 const accessLogStream = rfs.createStream('access.log', {
-    interval: '5m', // rotate daily
+    interval: '20m', // rotate daily
     path: path.join(__dirname, 'log') //write to a subdir log
 })
 morgan.token('exception', function(req, res) {
