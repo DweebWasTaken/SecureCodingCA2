@@ -74,7 +74,7 @@ app.post('/user/login', function(req, res) { //Login
         } else {
             res.statusCode = 201;
             res.setHeader('Content-Type', 'application/json');
-            delete result[0]['password']; //clear the password in json data, do not send back to client
+            //   delete result[0]['password']; //clear the password in json data, do not send back to client
             res.json({ success: true, UserData: JSON.stringify(result), token: token, status: 'You are successfully logged in!' });
         }
     });

@@ -16,7 +16,7 @@ var userDB = {
             } else {
                 console.log("Connected!");
 
-                var sql = "SELECT * FROM user WHERE email = ?";
+                var sql = "SELECT * FROM users WHERE email = ?";
 
                 conn.query(sql, [email], function(err, result) {
                     if (err) {
@@ -37,7 +37,7 @@ var userDB = {
                                     // passwords match
                                     var role = result[0].role;
                                     var username = result[0].username;
-                                    var token = jwt.sign({ "role": role, "username": username }, config.JWTKey, { expiresIn: 86400 });
+                                    var token = jwt.sign({ "role": role, "username": username }, config.key, { expiresIn: 86400 });
 
                                     console.log("It works | Password: " + password + " hashedass: " + hashedPassword);
                                     return callback(null, token);
