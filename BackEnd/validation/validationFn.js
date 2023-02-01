@@ -2,22 +2,6 @@ var validator = require('validator');
 
 var validationFn = {
 
-    validateRegister: function(req, res, next) {
-        // Extract the values for username, email, and password from the request
-
-        var username = req.body.username;
-        var email = req.body.email;
-        var password = req.body.password;
-
-        // Validate username, email, and password
-
-        if (!validator.isAlphanumeric(username) || !validator.isEmail(email) || !validator.isAlphanumeric(password)) {
-            res.status(400);
-            res.send(`{"message":"Bad Request"}`);
-        } else {
-            next();
-        }
-    },
     validateUserid: function(req, res, next) {
         //Validation code to check userid from req.params
         //return response with status 500 if validation fails

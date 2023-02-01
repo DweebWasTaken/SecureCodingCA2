@@ -1,15 +1,13 @@
-
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/2a646d8a1f.js" crossorigin="anonymous"></script>
 <!------ Include the above in your HEAD tag ---------->
 
 <link rel="stylesheet" href="css/listings.css">
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         var userData = localStorage.getItem('userData');
         var userDataJson = JSON.parse(userData);
         var token = localStorage.getItem('token');
@@ -20,21 +18,26 @@
         }
 
         var username = userDataJson[0].username;
-
+        var userid = userDataJson[0].id;
         $('#profile').html(username);
 
 
         $.ajax({
-            url: "http://localhost:8081/listing/" + `${listingid}`,//supply the api url
-            type: "GET",///supply the method
-            contentType: "application/json",//standard
+            url: "http://localhost:8081/listing/" + `${listingid}`, //supply the api url
+            type: "GET", ///supply the method
+            contentType: "application/json", //standard
             dataType: "json",
-            success: function (data, textStatus, xhr) {//retrieve some data back from server
+            success: function(data, textStatus, xhr) { //retrieve some data back from server
                 if (data.success) {
                     var title = data.result[0].title;
                     var category = data.result[0].category;
                     var description = data.result[0].description;
                     var price = data.result[0].price;
+                    var crate = data.result[0].fk_poster_id;
+                    if (userid != crate) {
+                        window.alert("Please login with a correct user")
+                        window.location.assign("http://localhost:3001/listings.html")
+                    }
 
                     $('#title').val(title);
                     $('#category').val(category);
@@ -44,7 +47,8 @@
                 } else {
                     window.alert("Error in retrieving")
                 }
-            }, error(xhr, textStatus, err) {
+            },
+            error(xhr, textStatus, err) {
                 console.log(err)
                 window.alert("Error in retrieving")
             }
@@ -52,7 +56,7 @@
         });
 
 
-        $('#update').click(function () {
+        $('#update').click(function() {
             var title = $('#title').val();
             var category = $('#category').val();
             var description = $('#description').val();
@@ -60,19 +64,20 @@
 
             var data = `{"title":"${title}","category":"${category}","description":"${description}","price":${price},"id":${listingid}}`
             $.ajax({
-                url: "http://localhost:8081/listing/update/",//supply the api url
-                type: "PUT",///supply the method
-                data: data,//supply the data to the back-end(like PostMAN body but sending it in raw json format)
-                contentType: "application/json",//standard
+                url: "http://localhost:8081/listing/update/", //supply the api url
+                type: "PUT", ///supply the method
+                data: data, //supply the data to the back-end(like PostMAN body but sending it in raw json format)
+                contentType: "application/json", //standard
                 dataType: "json",
-                success: function (data, textStatus, xhr) {//retrieve some data back from server
+                success: function(data, textStatus, xhr) { //retrieve some data back from server
                     if (data.success) {
                         window.alert("Successfully updated listing")
                         window.location.assign("http://localhost:3001/viewlisting.html?listingid=" + `${listingid}`)
                     } else {
                         window.alert("Unsuccessfully updated listing")
                     }
-                }, error(xhr, textStatus, err) {
+                },
+                error(xhr, textStatus, err) {
                     console.log(err)
                     window.alert("Error")
                 }
@@ -80,22 +85,23 @@
             return false;
         });
 
-        $('#delete').click(function () {
+        $('#delete').click(function() {
             var data = `{"id":${listingid}}`
             $.ajax({
-                url: "http://localhost:8081/listing/delete/",//supply the api url
-                type: "DELETE",///supply the method
-                data: data,//supply the data to the back-end(like PostMAN body but sending it in raw json format)
-                contentType: "application/json",//standard
+                url: "http://localhost:8081/listing/delete/", //supply the api url
+                type: "DELETE", ///supply the method
+                data: data, //supply the data to the back-end(like PostMAN body but sending it in raw json format)
+                contentType: "application/json", //standard
                 dataType: "json",
-                success: function (data, textStatus, xhr) {//retrieve some data back from server
+                success: function(data, textStatus, xhr) { //retrieve some data back from server
                     if (data.success) {
                         window.alert("Successfully deleted listing")
                         window.location.assign("http://localhost:3001/listings.html")
                     } else {
                         window.alert("Unsuccessfully deleted listing")
                     }
-                }, error(xhr, textStatus, err) {
+                },
+                error(xhr, textStatus, err) {
                     console.log(err)
                     window.alert("Error")
                 }
@@ -104,17 +110,18 @@
         });
 
 
-        $('#logout').click(function () {
+        $('#logout').click(function() {
             $.ajax({
-                url: "http://localhost:8081/user/logout",//supply the api url
-                type: "POST",///supply the method
-                contentType: "application/json",//standard
+                url: "http://localhost:8081/user/logout", //supply the api url
+                type: "POST", ///supply the method
+                contentType: "application/json", //standard
                 dataType: "json",
-                success: function (data, textStatus, xhr) {//retrieve some data back from server
+                success: function(data, textStatus, xhr) { //retrieve some data back from server
                     console.log(data)
                     window.localStorage.clear()
                     window.location.assign("http://localhost:3001/loginPage.html")
-                }, error(xhr, textStatus, err) {
+                },
+                error(xhr, textStatus, err) {
                     console.log(err)
                     console.log("Error")
                 }
@@ -122,7 +129,7 @@
             return false;
         });
 
-        $('#searchbutton').click(function () {
+        $('#searchbutton').click(function() {
             var search = $('#search').val()
             window.location.assign("http://localhost:3001/searchlistings.html?search=" + `${search}`)
         });
@@ -132,15 +139,13 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container">
         <a class="navbar-brand" href="listings.html">Snapsell</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <form class="form-inline my-2 my-lg-0">
             <div class="input-group input-group-sm" id="searchbar">
-                <input type="text" size="50" class="form-control" id="search" aria-label="Small"
-                    aria-describedby="inputGroup-sizing-sm" placeholder="Search...">
+                <input type="text" size="50" class="form-control" id="search" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search...">
                 <div class="input-group-append">
                     <button type="button" class="btn btn-secondary btn-number" id="searchbutton">
                         <i class="fa fa-search"></i>
@@ -162,7 +167,7 @@
                     Logout
                 </button>
         </form>
-    </div>
+        </div>
     </div>
 </nav>
 

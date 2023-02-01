@@ -1,20 +1,17 @@
-
-
 var db = require('./databaseConfig.js');
 
 var listingDB = {
-    addListing: function (title, category, description, price, fk_poster_id, callback) {
+    addListing: function(title, category, description, price, fk_poster_id, callback) {
         console.log(description);
         var conn = db.getConnection();
 
-        conn.connect(function (err) {
+        conn.connect(function(err) {
             if (err) {
                 console.log(err);
                 return callback(err, null);
-            }
-            else {
+            } else {
                 var sql = 'insert into listings(title,category,description,price,fk_poster_id) values(?,?,?,?,?)';
-                conn.query(sql, [title, category, description, price, fk_poster_id], function (err, result) {
+                conn.query(sql, [title, category, description, price, fk_poster_id], function(err, result) {
                     conn.end();
                     if (err) {
                         console.log("Err: " + err);
@@ -27,15 +24,15 @@ var listingDB = {
             }
         })
     },
-    getUserListings: function (userid, callback) {
+    getUserListings: function(userid, callback) {
         var conn = db.getConnection();
-        conn.connect(function (err) {
+        conn.connect(function(err) {
             if (err) {
                 console.log(err);
                 return callback(err, null);
             } else {
                 var sql = `select l.title,l.category,l.price,l.id,i.name from listings l,images i where l.id = i.fk_product_id and fk_poster_id = ${userid}`;
-                conn.query(sql, [], function (err, result) {
+                conn.query(sql, [], function(err, result) {
                     conn.end()
                     if (err) {
                         console.log(err);
@@ -48,15 +45,15 @@ var listingDB = {
 
         })
     },
-    getListing: function (id, callback) {
+    getListing: function(id, callback) {
         var conn = db.getConnection();
-        conn.connect(function (err) {
+        conn.connect(function(err) {
             if (err) {
                 console.log(err);
                 return callback(err, null);
             } else {
                 var sql = "select l.title,l.category,l.description,l.price,u.username,l.fk_poster_id,i.name from listings l,users u,images i where l.id = ? and l.id = i.fk_product_id and l.fk_poster_id = u.id";
-                conn.query(sql, [id], function (err, result) {
+                conn.query(sql, [id], function(err, result) {
                     conn.end()
                     if (err) {
                         console.log(err);
@@ -69,15 +66,15 @@ var listingDB = {
 
         })
     },
-    getOtherUsersListings: function (query, userid, callback) {
+    getOtherUsersListings: function(query, userid, callback) {
         var conn = db.getConnection();
-        conn.connect(function (err) {
+        conn.connect(function(err) {
             if (err) {
                 console.log(err);
                 return callback(err, null);
             } else {
-                var sql = "select l.title,l.category,l.price,l.id,i.name from listings l,images i where l.id = i.fk_product_id and l.fk_poster_id != ? and l.title like '%" + query + "%'";
-                conn.query(sql, [userid], function (err, result) {
+                var sql = "select l.title,l.category,l.price,l.id,i.name from listings l,images i where l.id = i.fk_product_id and l.fk_poster_id != ? and l.title like '%?%'";
+                conn.query(sql, [userid], function(err, result) {
                     conn.end()
                     if (err) {
                         console.log(err);
@@ -90,15 +87,15 @@ var listingDB = {
 
         })
     },
-    updateListing: function (title, category, description, price, id, callback) {
+    updateListing: function(title, category, description, price, id, callback) {
         var conn = db.getConnection();
-        conn.connect(function (err) {
+        conn.connect(function(err) {
             if (err) {
                 console.log(err);
                 return callback(err, null);
             } else {
                 var sql = "update listings set title = ?,category = ?,description = ?,price = ? where id = ?";
-                conn.query(sql, [title, category, description, price, id], function (err, result) {
+                conn.query(sql, [title, category, description, price, id], function(err, result) {
                     conn.end()
                     if (err) {
                         console.log(err);
@@ -111,15 +108,15 @@ var listingDB = {
 
         })
     },
-    deleteListing: function (id, callback) {
+    deleteListing: function(id, callback) {
         var conn = db.getConnection();
-        conn.connect(function (err) {
+        conn.connect(function(err) {
             if (err) {
                 console.log(err);
                 return callback(err, null);
             } else {
                 var sql = "delete from listings where id = ?";
-                conn.query(sql, [id], function (err, result) {
+                conn.query(sql, [id], function(err, result) {
                     conn.end()
                     if (err) {
                         console.log(err);
