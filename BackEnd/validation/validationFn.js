@@ -2,6 +2,7 @@ var validator = require('validator');
 
 var validationFn = {
 
+
     validateUserid: function(req, res, next) {
         //Validation code to check userid from req.params
         //return response with status 500 if validation fails

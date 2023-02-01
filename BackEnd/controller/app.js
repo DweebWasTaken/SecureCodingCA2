@@ -9,6 +9,7 @@ var images = require('../model/images')
 var verifyToken = require('../auth/verifyToken.js');
 const morgan = require('morgan');
 var  rfs  =  require('rotating-file-stream');
+var validateFn = require('../validation/validationFn.js'); // broken can remove
 ///
 
 

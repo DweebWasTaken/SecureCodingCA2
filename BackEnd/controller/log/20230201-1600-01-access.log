@@ -1,5 +1,0 @@
-{"exception":"-","id":"-","method":"POST","url":"/user/login","remote-addr":"::1","status":"201","content-length":"413","response-time":"167.473 ms","date":"Wed, 01 Feb 2023 07:59:36 GMT"}
-{"exception":"-","id":"14","method":"GET","url":"/user/listing/","remote-addr":"::1","status":"304","content-length":"-","response-time":"9.902 ms","date":"Wed, 01 Feb 2023 07:59:37 GMT"}
-{"exception":"-","id":"-","method":"GET","url":"/Discord%20Auto%20Typer-1675233788721.exe","remote-addr":"::1","status":"304","content-length":"-","response-time":"6.033 ms","date":"Wed, 01 Feb 2023 07:59:37 GMT"}
-{"exception":"-","id":"-","method":"GET","url":"/Orange%20Glow%20Block-1675234739812.png","remote-addr":"::1","status":"304","content-length":"-","response-time":"6.352 ms","date":"Wed, 01 Feb 2023 07:59:37 GMT"}
-{"exception":"-","id":"-","method":"POST","url":"/user/logout","remote-addr":"::1","status":"200","content-length":"47","response-time":"0.797 ms","date":"Wed, 01 Feb 2023 07:59:38 GMT"}
