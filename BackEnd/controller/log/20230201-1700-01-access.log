@@ -1,0 +1,5 @@
+{"exception":"-","id":"-","method":"POST","url":"/user/login","remote-addr":"::1","status":"404","content-length":"9","response-time":"131.853 ms","date":"Wed, 01 Feb 2023 08:56:27 GMT"}
+{"exception":"-","id":"-","method":"POST","url":"/user/login","remote-addr":"::1","status":"201","content-length":"413","response-time":"168.847 ms","date":"Wed, 01 Feb 2023 08:56:49 GMT"}
+{"exception":"-","id":"-","method":"POST","url":"/user/login","remote-addr":"::1","status":"201","content-length":"413","response-time":"119.173 ms","date":"Wed, 01 Feb 2023 08:57:55 GMT"}
+{"exception":"-","id":"-","method":"POST","url":"/user/login","remote-addr":"::1","status":"201","content-length":"413","response-time":"129.093 ms","date":"Wed, 01 Feb 2023 08:58:47 GMT"}
+{"exception":"-","id":"-","method":"POST","url":"/user/login","remote-addr":"::ffff:127.0.0.1","status":"201","content-length":"413","response-time":"146.892 ms","date":"Wed, 01 Feb 2023 08:59:32 GMT"}
