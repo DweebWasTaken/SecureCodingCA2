@@ -6,7 +6,6 @@ var bcrypt = require('bcryptjs');
 var userDB = {
 
     loginUser: function(email, password, callback) {
-
         var conn = db.getConnection();
 
         conn.connect(function(err) {
@@ -16,52 +15,46 @@ var userDB = {
             } else {
                 console.log("Connected!");
 
-                var sql = "SELECT * FROM users WHERE email = ?";
-
+                var sql = 'select * from users where email = ?';
                 conn.query(sql, [email], function(err, result) {
+                    conn.end();
+
                     if (err) {
+                        console.log("Err: " + err);
+                        return callback(err, null, null);
 
-                        console.log(err);
-                        return callback(err, null);
                     } else {
-
-                        if (result.length == 1) { //1 rec retrieved since email is unique
-
-                            const hashedPassword = result[0].password;
-                            // Compare the provided password with the hashed password using bcrypt
-                            bcrypt.compare(password, hashedPassword, function(err, match) {
+                        var token = "";
+                        if (result.length == 1) {
+                            bcrypt.compare(password, result[0].password, function(err, res) {
                                 if (err) {
-                                    console.log(err);
-                                    return callback(err, null);
-                                } else if (match) {
-                                    // passwords match
-                                    var role = result[0].role;
-                                    var username = result[0].username;
-                                    var token = jwt.sign({ "role": role, "username": username }, config.key, { expiresIn: 86400 });
-
-                                    console.log("It works | Password: " + password + " hashedass: " + hashedPassword);
-                                    return callback(null, token);
+                                    console.log("Err: " + err);
+                                    return callback(err, null, null);
+                                } else if (res) {
+                                    token = jwt.sign({ id: result[0].id }, config.key, {
+                                        expiresIn: 86400 //expires in 24 hrs
+                                    });
+                                    console.log("@@token " + token);
+                                    return callback(null, token, result);
                                 } else {
-                                    // passwords do not match
-                                    return callback(null, null);
+                                    console.log("email/password does not match");
+                                    var err2 = new Error("Email/Password does not match.");
+                                    err2.statusCode = 404;
+                                    console.log(err2);
+                                    return callback(err2, null, null);
                                 }
                             });
-
                         } else {
-
-                            //login wrong...
-                            return callback(null, null);
-
+                            console.log("Email not found");
+                            var err3 = new Error("Email not found.");
+                            err3.statusCode = 404;
+                            console.log(err3);
+                            return callback(err3, null, null);
                         }
-
                     }
-
                 });
-
             }
-
         });
-
     },
 
 

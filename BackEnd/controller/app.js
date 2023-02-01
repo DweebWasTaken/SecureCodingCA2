@@ -74,7 +74,7 @@ app.post('/user/login', function(req, res) { //Login
         } else {
             res.statusCode = 201;
             res.setHeader('Content-Type', 'application/json');
-            //   delete result[0]['password']; //clear the password in json data, do not send back to client
+            delete result[0]['password']; //clear the password in json data, do not send back to client
             res.json({ success: true, UserData: JSON.stringify(result), token: token, status: 'You are successfully logged in!' });
         }
     });
@@ -365,7 +365,15 @@ let storage = multer.diskStorage({
 
 let upload = multer({
     storage: storage,
-    limits: { fileSize: 5 * 1024 * 1024 }
+    limits: { fileSize: 5 * 1024 * 1024 },
+    fileFilter: function(req, file, cb) {
+        let allowedFileTypes = ["image/jpeg", "image/png"];
+        if (!allowedFileTypes.includes(file.mimetype)) {
+            cb(new Error("Invalid file type. Only JPEG and PNG are allowed."));
+        } else {
+            cb(null, true);
+        }
+    }
 }); //limits check if he file size is equal to or below 5mb
 
 

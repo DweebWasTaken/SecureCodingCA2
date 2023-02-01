@@ -1,4 +1,3 @@
-
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -9,8 +8,15 @@
 
 <head>
     <title>Snapsell Login</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script>
+        function onSubmit(token) {
+            document.getElementById("demo-form").submit();
+        }
+    </script>
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="css/login.css">
 </head>
@@ -26,57 +32,59 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center form_container">
-                    <form>
+                    <form action="/user/login" method="POST" id="demo-form">
                         <div class="input-group mb-3">
                             <div class="input-group-append">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
-                            <input type="text" name="" class="form-control input_user" id = "email"value="" placeholder="email">
+                            <input type="text" name="" class="form-control input_user" id="email" value="" placeholder="email">
                         </div>
                         <div class="input-group mb-2">
                             <div class="input-group-append">
                                 <span class="input-group-text"><i class="fas fa-key"></i></span>
                             </div>
-                            <input type="password" name="" class="form-control input_pass" id = "password" value=""
-                                placeholder="password">
+                            <input type="password" name="" class="form-control input_pass" id="password" value="" placeholder="password">
                         </div>
                         <div class="d-flex justify-content-center mt-3 login_container">
                             <button type="button" name="button" class="btn login_btn" id="Login">Login</button>
+                            <button type="button" name="button" id="Login" class="g-recaptcha btn login_btn" data-sitekey="6LfXEz4kAAAAAHYFoPaegjL-gJLPRRAUFibtv11_" data-callback="onSubmit">Submit</button>
+
                         </div>
                     </form>
                 </div>
+            </div>
         </div>
-    </div>
-    <script>
-        $(document).ready(function () {
-            $('#Login').click(function () { 
-                var email = $('#email').val();
-                var password = $('#password').val();
-                var data = `{"email":"${email}","password":"${password}"}`
+        <script>
+            $(document).ready(function() {
+                $('#Login').click(function() {
+                    var email = $('#email').val();
+                    var password = $('#password').val();
+                    var data = `{"email":"${email}","password":"${password}"}`
 
-                $.ajax({
-                    url:"http://localhost:8081/user/login",//supply the api url
-                    type:"POST",///supply the method
-                    data:data,//supply the data to the back-end(like PostMAN body but sending it in raw json format)
-                    contentType:"application/json",//standard
-                    dataType:"json",
-                    success:function(data,textStatus,xhr){//retrieve some data back from server
-                        if(data != null){
-                            var userData = data.UserData;
-                            var token = data.token;
-                            localStorage.setItem('token',token);//store at local storage like cache
-                            localStorage.setItem('userData',userData)
-                            window.location.assign("http://localhost:3001/listings.html")//redirect the user to the next webpage
-                        }else{
+                    $.ajax({
+                        url: "http://localhost:8081/user/login", //supply the api url
+                        type: "POST", ///supply the method
+                        data: data, //supply the data to the back-end(like PostMAN body but sending it in raw json format)
+                        contentType: "application/json", //standard
+                        dataType: "json",
+                        success: function(data, textStatus, xhr) { //retrieve some data back from server
+                            if (data != null) {
+                                var userData = data.UserData;
+                                var token = data.token;
+                                localStorage.setItem('token', token); //store at local storage like cache
+                                localStorage.setItem('userData', userData)
+                                window.location.assign("http://localhost:3001/listings.html") //redirect the user to the next webpage
+                            } else {
+                                window.alert("Wrong Credentials")
+                            }
+                        },
+                        error(xhr, textStatus, err) {
+                            console.log(err)
                             window.alert("Wrong Credentials")
                         }
-                    },error(xhr,textStatus,err){
-                        console.log(err)
-                        window.alert("Wrong Credentials")
-                    }
-                });
-                return false;
-            })
-        });
-    </script>
+                    });
+                    return false;
+                })
+            });
+        </script>
 </body>

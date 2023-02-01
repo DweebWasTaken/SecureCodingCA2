@@ -1,0 +1,8 @@
+{"exception":"-","id":"-","method":"POST","url":"/user/logout","remote-addr":"::1","status":"200","content-length":"47","response-time":"1.972 ms","date":"Tue, 31 Jan 2023 07:06:03 GMT"}
+{"exception":"-","id":"-","method":"POST","url":"/user/login","remote-addr":"::1","status":"404","content-length":"9","response-time":"86.857 ms","date":"Tue, 31 Jan 2023 07:06:08 GMT"}
+{"exception":"-","id":"-","method":"POST","url":"/user/login","remote-addr":"::1","status":"201","content-length":"407","response-time":"5.326 ms","date":"Tue, 31 Jan 2023 07:06:15 GMT"}
+{"exception":"-","id":"14","method":"GET","url":"/user/listing/","remote-addr":"::1","status":"304","content-length":"-","response-time":"6.034 ms","date":"Tue, 31 Jan 2023 07:06:15 GMT"}
+{"exception":"-","id":"-","method":"POST","url":"/user/logout","remote-addr":"::1","status":"200","content-length":"47","response-time":"0.442 ms","date":"Tue, 31 Jan 2023 07:06:16 GMT"}
+{"exception":"-","id":"-","method":"POST","url":"/user/login","remote-addr":"::1","status":"404","content-length":"9","response-time":"97.672 ms","date":"Tue, 31 Jan 2023 07:11:48 GMT"}
+{"exception":"-","id":"-","method":"POST","url":"/user/login","remote-addr":"::1","status":"404","content-length":"9","response-time":"5.745 ms","date":"Tue, 31 Jan 2023 07:11:53 GMT"}
+{"exception":"-","id":"-","method":"POST","url":"/user/login","remote-addr":"::1","status":"404","content-length":"9","response-time":"81.253 ms","date":"Tue, 31 Jan 2023 07:14:31 GMT"}
