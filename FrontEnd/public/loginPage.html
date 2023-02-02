@@ -34,23 +34,28 @@
                 </div>
                 <div class="d-flex justify-content-center form_container">
                     <form id="demo-form">
+
                         <div class="input-group mb-3">
                             <div class="input-group-append">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
-                            <input type="text" name="" class="form-control input_user" id="email" value="" placeholder="email">
+                            <input type="text" name="" value="testuserrr1@gmail.com" class="form-control input_user" id="email" value="" placeholder="email">
                         </div>
                         <div class="input-group mb-2">
                             <div class="input-group-append">
                                 <span class="input-group-text"><i class="fas fa-key"></i></span>
                             </div>
-                            <input type="password" name="" class="form-control input_pass" id="password" value="" placeholder="password">
+                            <input type="password" value="Passw0rd1" name="" class="form-control input_pass" id="password" value="" placeholder="password">
                         </div>
                         <div class="d-flex justify-content-center mt-3 login_container">
                             <!--<button type="button" name="button" class="btn login_btn" id="Login">Login</button>-->
                         </div>
                         <br>
-                        <button type="button" name="button" class="g-recaptcha btn login_btn" id="Login" data-sitekey="6Lc2aEIkAAAAAFgctjg4lQPyKjhCAvjvwn6mxDT-" data-callback="onSubmit">Submit</button>
+                        <div class="form-group">
+                            <div class="g-recaptcha" data-sitekey="6LecpEYkAAAAACUOee-ymuDsnj4nnBZid83ADOQC"></div>
+                        </div>
+                        <button type="submit" name="button" class="btn login_btn" id="Login">Submit</button>
+                        <!-- <button type="button" name="button" class="g-recaptcha btn login_btn" id="Login" data-sitekey="6Lc2aEIkAAAAAFgctjg4lQPyKjhCAvjvwn6mxDT-" data-callback="onSubmit">Submit</button> -->
 
                     </form>
                 </div>
@@ -61,16 +66,25 @@
                 $('#Login').click(function() {
                     var email = $('#email').val();
                     var password = $('#password').val();
-                    var captcha = grecaptcha.getResponse();
-                    var data = `{"email":"${email}","password":"${password}", "recaptcha": "${captcha}"}`
-
+                    // var captcha = null //grecaptcha.getResponse();
+                    const captcha = document.querySelector('#g-recaptcha-response').value;
+                    // var data = `{"email":"${email}","password":"${password}", "recaptcha": "${captcha}"}`
+                    var data = {
+                        email,
+                        password,
+                        captcha
+                    }
                     $.ajax({
                         url: "http://localhost:8081/user/login", //supply the api url
                         type: "POST", ///supply the method
-                        data: data, //supply the data to the back-end(like PostMAN body but sending it in raw json format)
+                        data: JSON.stringify(data), //supply the data to the back-end(like PostMAN body but sending it in raw json format)
                         contentType: "application/json", //standard
                         dataType: "json",
                         success: function(data, textStatus, xhr) { //retrieve some data back from server
+                            if (!data.success) {
+                                alert(data.msg)
+                                return
+                            }
                             if (data != null) {
                                 var userData = data.UserData;
                                 var token = data.token;
