@@ -10,7 +10,7 @@ var verifyToken = require("../auth/verifyToken.js");
 const morgan = require("morgan");
 var rfs = require("rotating-file-stream");
 const { stringify } = require("querystring");
-const fetch = require("node-fetch");
+
 ///
 
 ////
@@ -20,6 +20,9 @@ var multer = require("multer");
 var cors = require("cors"); //Just use(security feature)
 const { json } = require("body-parser");
 const { request } = require("http");
+const { default: fetch } = require("node-fetch");
+
+
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
@@ -76,7 +79,7 @@ app.post("/user/login", async function(req, res) {
         return res.json({ success: false, msg: "Please select captcha" });
 
     // Secret key
-    var secretKey = "6LecpEYkAAAAABT1RQ2x40Q6KHqJzYiR3MKQp_6G";
+    var secretKey = "6Lfs30YkAAAAAC2IRroetzWekSr6cubFhaeKp1WG";
     // Verify URL
     const query = stringify({
         secret: secretKey,
@@ -87,29 +90,35 @@ app.post("/user/login", async function(req, res) {
     //   const verifyURL = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}&`;
 
     // Make a request to verifyURL
-    const body = await fetch(verifyURL).then((res) => res.json());
+    //use .catch to handle error
+    try {
+        const body = await fetch(verifyURL).then((response) => response.json());
 
-    console.log(body);
-    // If not successful
-    if (body.success !== undefined && !body.success)
-        return res.json({ success: false, msg: "Failed captcha verification" });
+        console.log(body);
+        // If not successful
+        if (body.success !== undefined && !body.success)
+            return res.json({ success: false, msg: "Failed captcha verification" });
 
-    user.loginUser(email, password, function(err, token, result) {
-        if (err) {
-            res.status(500);
-            res.send(err.statusCode);
-        } else {
-            res.statusCode = 201;
-            res.setHeader("Content-Type", "application/json");
-            delete result[0]["password"]; //clear the password in json data, do not send back to client
-            res.json({
-                success: true,
-                UserData: JSON.stringify(result),
-                token: token,
-                status: "You are successfully logged in!",
-            });
-        }
-    });
+        user.loginUser(email, password, function(err, token, result) {
+            if (err) {
+                res.status(500);
+                res.send(err.statusCode);
+            } else {
+                res.statusCode = 201;
+                res.setHeader("Content-Type", "application/json");
+                delete result[0]["password"]; //clear the password in json data, do not send back to client
+                res.json({
+                    success: true,
+                    UserData: JSON.stringify(result),
+                    token: token,
+                    status: "You are successfully logged in!",
+                });
+            }
+        });
+    } catch (error) {
+        console.error(error);
+        res.json({ success: false, msg: "Error fetching verification data" });
+    }
 });
 
 app.post("/user", function(req, res) {
