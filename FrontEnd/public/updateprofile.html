@@ -27,6 +27,29 @@
             var username = $('#username').val();
             var firstname = $('#firstname').val();
             var lastname = $('#lastname').val();
+
+            //Username must be 3-15 characters long and contain only letters and numbers
+            var usernameRegex = /^[a-zA-Z0-9]{3,15}$/;
+
+            var firstnameRegex = /^[a-zA-Z]{3,20}$/;
+            var lastnameRegex = /^[a-zA-Z]{3,20}$/;
+
+
+            if (!usernameRegex.test(username)) {
+                window.alert("Username must be 3-15 characters long and contain only letters and numbers");
+                return false;
+            }
+
+            if (!firstnameRegex.test(firstname)) {
+                window.alert("First name must be 3-20 characters long and contain only letters");
+                return false;
+            }
+
+            if (!lastnameRegex.test(lastname)) {
+                window.alert("Last name must be 3-20 characters long and contain only letters");
+                return false;
+            }
+
             var data = `{"username":"${username}","firstname":"${firstname}","lastname":"${lastname}"}`
             $.ajax({
                 headers: {

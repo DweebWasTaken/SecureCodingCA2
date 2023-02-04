@@ -10,6 +10,7 @@ var verifyToken = require("../auth/verifyToken.js");
 const morgan = require("morgan");
 var rfs = require("rotating-file-stream");
 const { stringify } = require("querystring");
+const validationFn = require("../validation/validationFn.js");
 
 ///
 
@@ -265,10 +266,12 @@ app.put("/listing/update/", function(req, res) {
             if (err) {
                 res.status(500);
                 res.json({ success: false });
+
             } else {
                 res.status(200);
                 res.setHeader("Content-Type", "application/json");
                 res.json({ success: true });
+
             }
         }
     );
